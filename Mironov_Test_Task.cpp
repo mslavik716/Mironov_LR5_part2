@@ -7,30 +7,31 @@
 #include "Mironov_Task.h"
 
 using namespace cute;
+using namespace std;
 
 void testUserInput_Empty() {
-  std::string str = "";
+  string str = "";
   bool expected = false;
   bool actual = UserInput(str);
   ASSERT_EQUAL(expected, actual);
 }
 
 void testUserInput_Letter() {
-  std::string str = "a";
+  string str = "a";
   bool expected = false;
   bool actual = UserInput(str);
   ASSERT_EQUAL(expected, actual);
 }
 
 void testUserInput_Negative() {
-  std::string str = "-5";
+  string str = "-5";
   bool expected = false;
   bool actual = UserInput(str);
   ASSERT_EQUAL(expected, actual);
 }
 
 void testUserInput_Valid() {
-  std::string str = "10";
+  string str = "10";
   bool expected = true;
   bool actual = UserInput(str);
   ASSERT_EQUAL(expected, actual);
