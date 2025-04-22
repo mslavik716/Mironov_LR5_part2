@@ -1,114 +1,66 @@
 #include "CUTE/cute/cute.h"
-#include "CUTE/cute/ide_listener.h"
 #include "CUTE/cute/cute_runner.h"
+#include "CUTE/cute/cute_suite.h"
+#include "CUTE/cute/cute_test.h"
+#include "CUTE/cute/ide_listener.h"
 //подключение модуля с тестируемыми методами
 #include "Mironov_Task.h"
 
 using namespace cute;
 
-//тест, проверяющий отсев пустых значений
 void testUserInput_Empty() {
-    // исходные данные
-    string str = "";
-    // ожидаемое значение результата работы функции UserInput
-    bool expected = false;
-
-    // получение значения с помощью тестируемого метода
-    bool actual = UserInput(str);
-
-    // сравнение ожидаемого результата с полученным
-    ASSERT_EQUAL (expected, actual);
+  std::string str = "";
+  bool expected = false;
+  bool actual = UserInput(str);
+  ASSERT_EQUAL(expected, actual);
 }
 
-//тест, проверяющий отсев нецифровых символов
-void testUserInput_Letter () {
-    // исходные данные
-    string str = "a";
-    // ожидаемое значение результата работы функции UserInput
-    bool expected = false;
-
-    // получение значения с помощью тестируемого метода
-    bool actual = UserInput(str);
-
-    // сравнение ожидаемого результата с полученным
-    ASSERT_EQUAL (expected, actual);
+void testUserInput_Letter() {
+  std::string str = "a";
+  bool expected = false;
+  bool actual = UserInput(str);
+  ASSERT_EQUAL(expected, actual);
 }
 
-//тест, проверяющий отсев отрицательных значений
-void testUserInput_NegativeValue () {
-    // исходные данные
-    string str = "-5";
-    // ожидаемое значение результата работы функции UserInput
-    bool expected = false;
-
-    // получение значения с помощью тестируемого метода
-    bool actual = UserInput (str);
-
-    // сравнение ожидаемого результата с полученным
-    ASSERT_EQUAL (expected, actual);
+void testUserInput_Negative() {
+  std::string str = "-5";
+  bool expected = false;
+  bool actual = UserInput(str);
+  ASSERT_EQUAL(expected, actual);
 }
 
-//тест, проверяющий отсев цифро-буквенных значений
-void testUserInput_DigitLetterValue() {
-    // исходные данные
-    string str = "5a";
-    // ожидаемое значение результата работы функции UserInput
-    bool expected = false;
-
-    // получение значения с помощью тестируемого метода
-    bool actual = UserInput(str);
-
-    // сравнение ожидаемого результата с полученным
-    ASSERT_EQUAL(expected, actual);
+void testUserInput_Valid() {
+  std::string str = "10";
+  bool expected = true;
+  bool actual = UserInput(str);
+  ASSERT_EQUAL(expected, actual);
 }
 
-//тест, проверяющий ввод символа
-void testEnterChar() {
-    // исходные данные
-    char expected = 'a';
-
-    // получение значения с помощью тестируемого метода
-    char actual = EnterChar("Введите символ");
-
-    // сравнение ожидаемого результата с полученным
-    ASSERT_EQUAL (expected, actual);
+void testCountEven() {
+  vector<int> nums{2, 3, 4};
+  int expected = 2;
+  int actual = CountEven(nums);
+  ASSERT_EQUAL(expected, actual);
 }
 
-//тест, проверяющий вывод символа и его кода ASCII
-void testPrintCharAndASCII() {
-    // исходные данные
-    char ch = 'a';
-
-    // получение значения с помощью тестируемого метода
-    PrintCharAndASCII(ch);
-}
-
-//тест, проверяющий вывод суммы кодов ASCII символов
-void testPrintSumOfASCII() {
-    // исходные данные
-    char ch1 = 'a';
-    char ch2 = 'b';
-
-    // получение значения с помощью тестируемого метода
-    PrintSumOfASCII(ch1, ch2);
+void testSumEven() {
+  vector<int> nums{2, 3, 4};
+  int expected = 6;
+  int actual = SumEven(nums);
+  ASSERT_EQUAL(expected, actual);
 }
 
 int main() {
-    // Создаем тестовый набор
-    suite s;
+  suite s;
 
-    // Добавляем тестовую функцию в набор
-    s.push_back(CUTE(testUserInput_Empty));
-    s.push_back(CUTE(testUserInput_Letter));
-    s.push_back(CUTE(testUserInput_NegativeValue));
-    s.push_back(CUTE(testUserInput_DigitLetterValue));
-    s.push_back(CUTE(testEnterChar));
-    s.push_back(CUTE(testPrintCharAndASCII));
-    s.push_back(CUTE(testPrintSumOfASCII));
+  s.push_back(CUTE(testUserInput_Empty));
+  s.push_back(CUTE(testUserInput_Letter));
+  s.push_back(CUTE(testUserInput_Negative));
+  s.push_back(CUTE(testUserInput_Valid));
+  s.push_back(CUTE(testCountEven));
+  s.push_back(CUTE(testSumEven));
 
-    // Создаем listener и runner
-    ide_listener<> listener;
-    makeRunner(listener) (s, "All Char Tests");
-
-    return 0;
+  ide_listener<> listener;
+  makeRunner(listener)(s, "All Even Task Tests");
+  return 0;
 }

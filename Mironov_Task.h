@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+
 using namespace std;
 
 bool UserInput(const std::string &input) {
@@ -46,6 +48,28 @@ void PrintCharAndASCII(char ch) {
 //функция вывода суммы кодов ASCII символов
 void PrintSumOfASCII(char ch1, char ch2) {
     cout << "Сумма кодов ASCII символов: " << (int)ch1 + (int)ch2 << endl;
+}
+
+//функция подсчета четных чисел в векторе
+int CountEven(const vector<int>& nums) {
+    int count = 0;
+    for (int num : nums) {
+        if (num % 2 == 0) {
+            count++;
+        }
+    }
+    return count;
+}
+
+//функция суммы четных чисел в векторе
+int SumEven(const vector<int>& nums) {
+    int sum = 0;
+    for (int num : nums) {
+        if (num % 2 == 0) {
+            sum += num;
+        }
+    }
+    return sum;
 }
 
 #endif
